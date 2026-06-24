@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #06283D;
+  --yellow: #FFB400;
+  --muted: #F6F7FB;
+  --card: #FFFFFF;
+  --text: #102A43;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+  font-family: Inter, system-ui, Arial, sans-serif;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  @apply outline-none ring-2 ring-yellow-300;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-2xl px-5 py-3 font-semibold transition-all duration-200;
+  }
+  .btn-primary {
+    @apply bg-yellow-400 text-slate-900 hover:bg-yellow-500;
+  }
+  .btn-ghost {
+    @apply border border-slate-200 bg-white text-slate-900 hover:bg-slate-50;
+  }
+}
