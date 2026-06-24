@@ -13,7 +13,9 @@ export default function AdminPanel() {
     setError(null)
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+      // Normalize API URL (remove trailing slashes) to avoid double-slash requests
+      const rawUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+      const API_URL = rawUrl.replace(/\/+$|\/+$/g, '')
       const res = await fetch(`${API_URL}/admin/submissions?pwd=${encodeURIComponent(password)}`)
       
       if (res.status === 401) {
