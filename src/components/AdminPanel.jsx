@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 
 export default function AdminPanel() {
   const [submissions, setSubmissions] = useState([])
@@ -13,9 +13,13 @@ export default function AdminPanel() {
     setError(null)
 
     try {
+      // Choose API base:
+      // - If VITE_API_URL is set, use it (strip trailing slashes)
+      // - Otherwise in production use relative paths so Vercel can proxy /api -> backend
+      // - In dev fallback to localhost
       const rawUrl = import.meta.env.VITE_API_URL || ''
       const API_BASE = rawUrl ? rawUrl.replace(/\/+$/g, '') : (import.meta.env.PROD ? '' : 'http://localhost:4000')
-      const res = await fetch(`${API_BASE}/api/admin/submissions?pwd=${encodeURIComponent(password)}`)
+      const res = await fetch(`${API_BASE}/api/submissions?pwd=${encodeURIComponent(password)}`)
 
       if (res.status === 401) {
         setError('Invalid password')
