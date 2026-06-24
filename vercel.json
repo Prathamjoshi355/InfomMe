@@ -1,4 +1,4 @@
-{
+﻿{
   "version": 2,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "https://backend.informxme.com/api/$1" },
