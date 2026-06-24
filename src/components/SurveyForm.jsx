@@ -17,8 +17,9 @@ export default function SurveyForm(){
     e.preventDefault()
     const payload = { vehicle, q2, q3, services, city, mobile, submittedAt: new Date().toISOString() }
     try{
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
-      const res = await fetch(`${API_URL}/api/submit`, {
+      const rawUrl = import.meta.env.VITE_API_URL || ''
+      const API_BASE = rawUrl ? rawUrl.replace(/\/+$/g, '') : (import.meta.env.PROD ? '' : 'http://localhost:4000')
+      const res = await fetch(`${API_BASE}/api/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

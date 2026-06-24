@@ -13,10 +13,13 @@ export default function AdminPanel() {
     setError(null)
 
     try {
-      // Normalize API URL (remove trailing slashes) to avoid double-slash requests
-      const rawUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000'
-      const API_URL = rawUrl.replace(/\/+$|\/+$/g, '')
-      const res = await fetch(`${API_URL}/admin/submissions?pwd=${encodeURIComponent(password)}`)
+      // Choose API base:
+      // - If VITE_API_URL is set, use it (strip trailing slashes)
+      // - Otherwise in production use relative paths so Vercel can proxy /api -> backend
+      // - In dev fallback to localhost
+      const rawUrl = import.meta.env.VITE_API_URL || ''
+      const API_BASE = rawUrl ? rawUrl.replace(/\/+$/g, '') : (import.meta.env.PROD ? '' : 'http://localhost:4000')
+      const res = await fetch(`${API_BASE}/admin/submissions?pwd=${encodeURIComponent(password)}`)
       
       if (res.status === 401) {
         setError('Invalid password')
