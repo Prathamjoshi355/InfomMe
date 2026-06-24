@@ -1,6 +1,6 @@
-import { MongoClient } from 'mongodb'
-import fs from 'fs'
-import path from 'path'
+const { MongoClient } = require('mongodb')
+const fs = require('fs')
+const path = require('path')
 
 let cachedClient = null
 let cachedDb = null
@@ -16,7 +16,7 @@ async function connectToDatabase(uri) {
   return { client: cachedClient, db: cachedDb }
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
   try {

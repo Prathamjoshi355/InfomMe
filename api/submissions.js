@@ -1,6 +1,6 @@
-import { MongoClient } from 'mongodb'
-import fs from 'fs'
-import path from 'path'
+const { MongoClient } = require('mongodb')
+const fs = require('fs')
+const path = require('path')
 
 let cachedClient = null
 let cachedDb = null
@@ -16,11 +16,13 @@ async function connectToDatabase(uri) {
   return { client: cachedClient, db: cachedDb }
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' })
 
   try {
-    const pwd = req.query.pwd || req.url.split('?pwd=')[1] || ''
+    const url = req.url || ''
+    const pwdQuery = url.split('?pwd=')[1] || ''
+    const pwd = (req.query && req.query.pwd) || pwdQuery || ''
     const adminPwd = process.env.ADMIN_PASSWORD || process.env.VITE_ADMIN_PASSWORD || 'admin123'
     if (pwd !== adminPwd) return res.status(401).json({ error: 'Unauthorized' })
 
