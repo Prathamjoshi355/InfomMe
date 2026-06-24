@@ -15,7 +15,7 @@ export default function Hero() {
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
             Stranded on the road? <span className="text-yellow-400">We've got your back!</span>
           </h2>
-          <p className="text-lg text-black sm:text-xl text-slate-100 max-w-2xl">
+          <p className="text-lg text-black sm:text-xl max-w-2xl">
             InformxMe connects you with nearby trusted professionals for all your vehicle needs.
           </p>
           <ul className="flex flex-wrap gap-3 text-sm sm:text-base">
